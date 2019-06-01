@@ -1,6 +1,5 @@
 package br.com.draju.templateapi.entity;
 
-import br.com.draju.templateapi.data.IdDocumentType;
 import lombok.*;
 
 import javax.persistence.Entity;

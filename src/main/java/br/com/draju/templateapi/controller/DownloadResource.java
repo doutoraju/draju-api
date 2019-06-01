@@ -1,17 +1,14 @@
 package br.com.draju.templateapi.controller;
 
+import br.com.draju.templateapi.data.Action;
+import br.com.draju.templateapi.data.Petitioner;
+import br.com.draju.templateapi.facade.DocxGenerator;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import br.com.draju.templateapi.data.AuthorBasicData;
-import br.com.draju.templateapi.facade.DocxGenerator;
 
 @Path("/template/download")
 public class DownloadResource {
@@ -22,10 +19,10 @@ public class DownloadResource {
     @POST
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createNewDocxMessage(AuthorBasicData userInformation) {
+    public Response createNewDocxMessage(@RequestBody Action action) {
         byte[] result;
         try {
-            result = docxGenerator.generateDocxByteFromTemplate(userInformation);
+            result = docxGenerator.generateDocxByteFromTemplate(action);
         } catch (Exception e) {
             e.printStackTrace();
             return Response.serverError().build();
@@ -34,16 +31,19 @@ public class DownloadResource {
                 .header("Content-Disposition", "attachment; filename=\"message.docx\"")
                 .build();
     }
-    
+
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response simpleGetTest(	@QueryParam("firstName") String firstName,
-    								@QueryParam("lastName") String lastName) {
-    	AuthorBasicData userInformation = new AuthorBasicData();
-    	userInformation.setFirstName(firstName);
-    	userInformation.setLastName(lastName);
-    	
-    	return createNewDocxMessage(userInformation);
+    public Response simpleGetTest(	@QueryParam("fullName") String fullName,
+    								@QueryParam("fullAddress") String fullAddress) {
+    	Petitioner petitioner = new Petitioner();
+        Action action = new Action();
+        petitioner.setFullName(fullName);
+        petitioner.setFullAdress(fullAddress);
+        petitioner.setCpf("123456789-09");
+    	action.setPetitioner(petitioner);
+
+    	return createNewDocxMessage(action);
     }
 }

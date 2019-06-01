@@ -12,9 +12,9 @@ Possible sections under each version release are "Added", "Changed", "Removed"
 -Validate information according to the informed template
 -Feign implementation and Cloud Foundry
 
-## [1.0.2] - 2019-04-16
+## [1.0.2] - 2019-06-16
 Database implementation to store template (JSON) information
-## [1.0.1] - 2019-04-15
+## [1.0.1] - 2019-06-01
 Complete the template, receive the full JSON object for "cobranca indevida"
 ## [1.0.0] - 2019-04-14
 Dra Ju, simple API for template replacement first and last names

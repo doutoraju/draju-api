@@ -1,4 +1,4 @@
-package br.com.draju.templateapi.data;
+package br.com.draju.templateapi.entity;
 
 public enum IdDocumentType {
     CPF(1),
