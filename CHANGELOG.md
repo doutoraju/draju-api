@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Possible sections under each version release are "Added", "Changed", "Removed"
 
+# [Links]
+BEST:
+https://medium.com/@krishnaregmi/how-to-create-dynamic-forms-in-angular-7-using-formcontrol-a443a2c5e3a9
+https://medium.com/@krishnaregmi/how-to-create-dynamic-forms-in-angular-7-using-formcontrol-a443a2c5e3a9
+
+OTHERS:
+https://angular.io/guide/dynamic-form
+https://medium.com/@mail.bahurudeen/create-a-dynamic-form-with-configurable-fields-and-validations-using-angular-6-994db56834da
+
+COMPONENTS:
+https://stackblitz.com/edit/angular-dynamic-form-builder?file=app%2Fapp.component.html
+https://medium.com/@krishnaregmi/how-to-create-dynamic-forms-in-angular-7-using-formcontrol-a443a2c5e3a9
+
 ## [Unreleased]
 -Service maintain templates
 -Template a parameter in the replace API
