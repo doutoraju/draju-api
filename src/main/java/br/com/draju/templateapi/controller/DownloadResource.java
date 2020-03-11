@@ -1,7 +1,7 @@
 package br.com.draju.templateapi.controller;
 
-import br.com.draju.templateapi.data.Action;
-import br.com.draju.templateapi.data.Petitioner;
+import br.com.draju.templateapi.entity.actiondata.Action;
+import br.com.draju.templateapi.entity.actiondata.Petitioner;
 import br.com.draju.templateapi.facade.DocxGenerator;
 import org.springframework.web.bind.annotation.RequestBody;
 

@@ -1,6 +1,6 @@
 package br.com.draju.templateapi.controller;
 
-import br.com.draju.templateapi.data.Action;
+import br.com.draju.templateapi.entity.actiondata.Action;
 import br.com.draju.templateapi.facade.DocxGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -19,7 +19,7 @@ public class TemplateController {
 		@Autowired
 		private DocxGenerator docxGenerator;
 
-	 	@PostMapping(path = "/fill", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	 	@PostMapping(path = "/fill", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	    public ResponseEntity<InputStreamResource> fillTemplate(@RequestBody Action actionData) {
 	 		 return retrieveTemplate(actionData);
 	    }

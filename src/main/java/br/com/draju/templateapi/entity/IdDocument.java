@@ -1,19 +1,13 @@
 package br.com.draju.templateapi.entity;
 
-import lombok.*;
+import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 
-@Entity
 @Data
-public class IdDocument {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@Embeddable
+public class IdDocument implements Serializable {
 
     private IdDocumentType documentType;
 

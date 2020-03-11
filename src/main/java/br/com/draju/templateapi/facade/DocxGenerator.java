@@ -4,7 +4,8 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.draju.templateapi.data.Action;
+import br.com.draju.templateapi.entity.actiondata.Action;
+import br.com.draju.templateapi.entity.actiondata.Defendant;
 import br.com.draju.templateapi.util.GeneratorUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.docx4j.model.datastorage.migration.VariablePrepare;
@@ -13,7 +14,7 @@ import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
 
-import br.com.draju.templateapi.data.Petitioner;
+import br.com.draju.templateapi.entity.actiondata.Petitioner;
 
 @Component
 public class DocxGenerator {
@@ -74,13 +75,18 @@ public class DocxGenerator {
         System.out.println("sieze is: " + documentPart.getContents().getBody().getContent().toString());
         VariablePrepare.prepare(wordMLPackage);
 
-        //prepare data for test
+        //prepare actiondata for test
         Petitioner petitioner = new Petitioner();
         Action action = new Action();
         petitioner.setFullName("Victor Vieira");
         petitioner.setFullAdress("Rua Schiller 82, AP 603, Cristo Rei");
         petitioner.setCpf("123456789-09");
         action.setPetitioner(petitioner);
+        Defendant defendant = new Defendant();
+        defendant.setIdType("CNPJ/MF");
+        defendant.setPersonType("pessoa jurídica");
+        defendant.setFullName("Vivo S.A");
+        defendant.setFullAddress("Av. Berrini 1465, São Paulo/SP");
 
         //print JSON
         // Creating Object of ObjectMapper define in Jakson Api
@@ -94,7 +100,7 @@ public class DocxGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //parse the data
+        //parse the actiondata
         Map<String, String> variables = GeneratorUtils.getReplacingParametersFromDTO(action);
         documentPart.variableReplace(variables);
         System.out.println("Content after replace is: " + documentPart.getContents().getBody().getContent().toString());

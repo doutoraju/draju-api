@@ -29,7 +29,7 @@ public class Customer {
 
     @NonNull
     @OneToMany
-    private List<IdDocument> documentList;
+    private List<CustomerDocuments> documentList;
 
     @NonNull
     @OneToOne

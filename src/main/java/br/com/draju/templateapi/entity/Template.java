@@ -23,5 +23,7 @@ public class Template {
     private Long id;
     private String type;
     private String defendantType;
+
+    @ManyToMany
     private List<TemplateOptions> templateOptions;
 }

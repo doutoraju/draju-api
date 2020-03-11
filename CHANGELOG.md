@@ -11,7 +11,13 @@ Possible sections under each version release are "Added", "Changed", "Removed"
 -Template a parameter in the replace API
 -Validate information according to the informed template
 -Feign implementation and Cloud Foundry
+-Swagger videos:
+https://www.youtube.com/watch?v=8s9I1G4tXhA
 
+## [1.0.3] - 2020-03-10
+Swagger documentation add to project:
+template-api/v2/api-docs
+template-api/swagger-ui.html
 ## [1.0.2] - 2019-06-16
 Database implementation to store template (JSON) information
 ## [1.0.1] - 2019-06-01

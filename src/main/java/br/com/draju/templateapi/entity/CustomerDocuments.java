@@ -1,17 +1,21 @@
 package br.com.draju.templateapi.entity;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 
 @Entity
 @Data
-public class TemplateOptions {
+public class CustomerDocuments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private OptionType optionType;
-    private boolean enabled;
+    @ManyToOne
+    private Customer customer;
+
+    @NonNull
+    private IdDocument document;
 }

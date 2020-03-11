@@ -1,0 +1,10 @@
+server:
+  port: 8080
+  servlet:
+    contextPath: /template-api
+logging:
+  level:
+    .: error
+    org.springframework: ERROR
+    br.com.draju: DEBUG
+
