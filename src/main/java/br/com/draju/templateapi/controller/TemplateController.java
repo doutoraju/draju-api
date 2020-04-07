@@ -4,6 +4,8 @@ import br.com.draju.templateapi.data.TemplateDTO;
 import br.com.draju.templateapi.entity.actiondata.Action;
 import br.com.draju.templateapi.facade.DocxGenerator;
 import br.com.draju.templateapi.util.TemplateUtils;
+import io.swagger.annotations.ApiOperation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,7 @@ public class TemplateController {
     private DocxGenerator docxGenerator;
 
     @PostMapping(path = "/fill", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @ApiOperation(value = "Fills a template and download document")
     public ResponseEntity<InputStreamResource> fillTemplate(@RequestBody Action actionData) {
         return retrieveTemplate(actionData);
     }
@@ -35,6 +38,7 @@ public class TemplateController {
      * @return
      */
     @GetMapping(path = "/getsimple", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Test default endpoint, like health check")
     public ResponseEntity<TemplateDTO> getSimpleTemplate() {
         TemplateDTO dto = TemplateUtils.createSimpleTemplate();
         return ResponseEntity.ok(dto);

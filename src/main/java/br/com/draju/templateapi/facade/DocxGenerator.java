@@ -14,6 +14,8 @@ import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
 
+import static br.com.draju.templateapi.util.Contants.*;
+
 import br.com.draju.templateapi.entity.actiondata.Petitioner;
 
 @Component
@@ -48,7 +50,7 @@ public class DocxGenerator {
      * @throws Exception
      */
     public InputStreamResource generateDocxStreamFromTemplate(Action actionInformation) throws Exception {
-    	String templateDir = new java.io.File(".").getCanonicalPath() + "\\target\\classes\\";
+    	String templateDir = new java.io.File(".").getCanonicalPath() + RESOURCES_LOCATION;
         InputStream templateInputStream = new FileInputStream(new java.io.File(templateDir + TEMPLATE_NAME));
         WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(templateInputStream);
         MainDocumentPart documentPart = wordMLPackage.getMainDocumentPart();
@@ -67,7 +69,7 @@ public class DocxGenerator {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-    	String templateDir = new java.io.File(".").getCanonicalPath() + "\\target\\classes\\";
+    	String templateDir = new java.io.File(".").getCanonicalPath() + RESOURCES_LOCATION;
         InputStream templateInputStream = new FileInputStream(new java.io.File(templateDir + TEMPLATE_NAME));
         System.out.println("Will process: " + templateInputStream.toString());
         WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(templateInputStream);

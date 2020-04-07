@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import static br.com.draju.templateapi.util.Contants.*;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -12,7 +14,8 @@ import java.net.UnknownHostException;
  */
 @Component
 public class EnvUtil {
-    @Autowired
+    
+	@Autowired
     Environment environment;
 
     private String port;
@@ -49,10 +52,10 @@ public class EnvUtil {
 
     public String getServerUrlPrefi() {
         try {
-            String hostName = getHostname() == null ? getHostname() : "localhost";
-            return "http://" + hostName + ":" + getPort();
+            String hostName = getHostname() == null ? getHostname() : DEFAULT_HOST;
+            return PROTOCOL_URL + hostName + ":" + getPort();
         } catch (UnknownHostException ex) {
-            return "http://localhost:" + getPort();
+            return PROTOCOL_URL + DEFAULT_HOST + getPort();
         }
     }
 }
