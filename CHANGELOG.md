@@ -24,8 +24,6 @@ https://medium.com/@krishnaregmi/how-to-create-dynamic-forms-in-angular-7-using-
 -Template a parameter in the replace API
 -Validate information according to the informed template
 -Eureka and Spring cloud
--Swagger videos:
-https://www.youtube.com/watch?v=8s9I1G4tXhA
 Future intents:
 - Know my rights, juridic questions (Direitos, dúvidas juridicas)
 - Talk to a laywer (Falar com advogado)

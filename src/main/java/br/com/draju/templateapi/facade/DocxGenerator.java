@@ -1,110 +1,68 @@
 package br.com.draju.templateapi.facade;
 
-import java.io.*;
+import static br.com.draju.templateapi.util.Contants.RESOURCES_LOCATION;
+import static br.com.draju.templateapi.util.Contants.TEMPLATE_NAME;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.draju.templateapi.entity.actiondata.Action;
-import br.com.draju.templateapi.entity.actiondata.Defendant;
-import br.com.draju.templateapi.util.GeneratorUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.docx4j.model.datastorage.migration.VariablePrepare;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
 
-import static br.com.draju.templateapi.util.Contants.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.draju.templateapi.entity.actiondata.Action;
+import br.com.draju.templateapi.entity.actiondata.Defendant;
 import br.com.draju.templateapi.entity.actiondata.Petitioner;
+import br.com.draju.templateapi.util.GeneratorUtils;
 
 @Component
 public class DocxGenerator {
-    private static final String TEMPLATE_NAME = "template_002.docx";
     
     /**
      * Reads a template and return a byte array after replacing tags
-     * @param action
+     * @param action 
      * @return
      * @throws Exception
      */
-    public byte[] generateDocxByteFromTemplate(Action action) throws Exception {
+    public byte[] simpleTemplateGeneration(Action action) throws Exception {
         InputStream templateInputStream = 
            this.getClass().getClassLoader().getResourceAsStream(TEMPLATE_NAME);
         WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(templateInputStream);
         MainDocumentPart documentPart = wordMLPackage.getMainDocumentPart();
         VariablePrepare.prepare(wordMLPackage);
         HashMap<String, String> variables = new HashMap<>();
-        //variables.put("Action.", action.getClass());
-        //variables.put("lastName", action.getLastName());
+        variables.put("Action.Petitioner.fullName", action.getPetitioner().getFullName());
         documentPart.variableReplace(variables);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         wordMLPackage.save(outputStream);
         return outputStream.toByteArray();
     }
     
+    
     /**
-     * Reads a template and return a stream after replacing tags
-     * @param actionInformation
-     * @return
+     * Generate action file and save on file system
+     * @param actionInformation The Action data
+     * @param templatePath The template full path
+     * @param destinationPath Location to store file
+     * @param variables Variables to replace in the document
      * @throws Exception
      */
-    public InputStreamResource generateDocxStreamFromTemplate(Action actionInformation) throws Exception {
-    	String templateDir = new java.io.File(".").getCanonicalPath() + RESOURCES_LOCATION;
-        InputStream templateInputStream = new FileInputStream(new java.io.File(templateDir + TEMPLATE_NAME));
+    public void generateDocxAndSave(Action actionInformation, String templatePath,
+    		String destinationPath, Map<String, String> variables) throws Exception {
+        InputStream templateInputStream = new FileInputStream(new java.io.File(templatePath));
         WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(templateInputStream);
         MainDocumentPart documentPart = wordMLPackage.getMainDocumentPart();
         VariablePrepare.prepare(wordMLPackage);
-        Map<String, String> variables = GeneratorUtils.getReplacingParametersFromDTO(actionInformation);
         documentPart.variableReplace(variables);
-        File outputFile = new File(templateDir + actionInformation.getPetitioner().getCpf());
-        wordMLPackage.save(outputFile);
-        return new InputStreamResource(new FileInputStream(outputFile));
+        wordMLPackage.save(new File(destinationPath));
     }
     
-    
-    /**
-     * Simple main test
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String[] args) throws Exception {
-    	String templateDir = new java.io.File(".").getCanonicalPath() + RESOURCES_LOCATION;
-        InputStream templateInputStream = new FileInputStream(new java.io.File(templateDir + TEMPLATE_NAME));
-        System.out.println("Will process: " + templateInputStream.toString());
-        WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(templateInputStream);
-        MainDocumentPart documentPart = wordMLPackage.getMainDocumentPart();
-        System.out.println("sieze is: " + documentPart.getContents().getBody().getContent().toString());
-        VariablePrepare.prepare(wordMLPackage);
-
-        //prepare actiondata for test
-        Petitioner petitioner = new Petitioner();
-        Action action = new Action();
-        petitioner.setFullName("Victor Vieira");
-        petitioner.setFullAdress("Rua Schiller 82, AP 603, Cristo Rei");
-        petitioner.setCpf("123456789-09");
-        action.setPetitioner(petitioner);
-        Defendant defendant = new Defendant();
-        defendant.setIdType("CNPJ/MF");
-        defendant.setPersonType("pessoa jurídica");
-        defendant.setFullName("Vivo S.A");
-        defendant.setFullAddress("Av. Berrini 1465, São Paulo/SP");
-
-        //print JSON
-        // Creating Object of ObjectMapper define in Jakson Api
-        ObjectMapper Obj = new ObjectMapper();
-        try {
-            // get Oraganisation object as a json string
-            String jsonStr = Obj.writeValueAsString(action);
-            // Displaying JSON String
-            System.out.println("PRINT JSON");
-            System.out.println(jsonStr);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //parse the actiondata
-        Map<String, String> variables = GeneratorUtils.getReplacingParametersFromDTO(action);
-        documentPart.variableReplace(variables);
-        System.out.println("Content after replace is: " + documentPart.getContents().getBody().getContent().toString());
-	}
 }

@@ -35,11 +35,6 @@
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>${junit.jupiter.version}</version>
 		</dependency>
-		<!-- JAX RS (Jersey) -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jersey</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

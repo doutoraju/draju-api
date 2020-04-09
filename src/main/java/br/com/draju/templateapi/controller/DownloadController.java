@@ -9,20 +9,32 @@ import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import br.com.draju.templateapi.entity.actiondata.Action;
+import br.com.draju.templateapi.service.ActionService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
 @RequestMapping("/api")
 @Log4j2
 public class DownloadController {
+	
+	
+	@Autowired
+	private ActionService service;
 
 	/**
 	 * http://localhost:8081/template-api/api/download
@@ -31,6 +43,7 @@ public class DownloadController {
 	 * @return
 	 */
 	@GetMapping(value = "/download", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation("Download an example file (zip)")
 	public ResponseEntity<StreamingResponseBody> download(final HttpServletResponse response) {
 
 		response.setContentType("application/zip");
@@ -64,4 +77,36 @@ public class DownloadController {
 		log.info("steaming response {} ", stream);
 		return new ResponseEntity(stream, HttpStatus.OK);
 	}
+	
+    @PostMapping(path = "/fill", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @ApiOperation(value = "Fills a action document and download content")
+    public ResponseEntity<InputStreamResource> fillTemplate(@RequestBody Action actionData) {
+        return retrieveTemplate(actionData);
+    }
+	
+    /**
+     * Utils method to retrieve file
+     *
+     * @param actionData Data to retrieve
+     * @return
+     */
+    private ResponseEntity<InputStreamResource> retrieveTemplate(Action actionData) {
+        InputStreamResource result = null;
+        try {
+            String filePath = service.generateActionFile(actionData);
+            result = new InputStreamResource(new FileInputStream(filePath));
+            return ResponseEntity.ok()
+                    // Content-Disposition
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=template.docx")
+                    // Content-Type
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    // Contet-Length
+                    .contentLength(result.contentLength()) //
+                    .body(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO: Improve errors
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
