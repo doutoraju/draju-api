@@ -23,9 +23,40 @@ https://medium.com/@krishnaregmi/how-to-create-dynamic-forms-in-angular-7-using-
 -Service maintain templates
 -Template a parameter in the replace API
 -Validate information according to the informed template
--Feign implementation and Cloud Foundry
+-Eureka and Spring cloud
 -Swagger videos:
 https://www.youtube.com/watch?v=8s9I1G4tXhA
+Future intents:
+- Know my rights, juridic questions (Direitos, dúvidas juridicas)
+- Talk to a laywer (Falar com advogado)
+- Review a contract (Revisar um contrato)
+
+##[Next-Priority]
+-Document generation and download
+-Dialog flow detect intent with Java link:
+https://cloud.google.com/dialogflow/docs/quick/api#detect-intent-text-java
+(Work on all pre-requisites before it)
+-Multilanguage support:
+https://cloud.google.com/dialogflow/docs/agents-multilingual
+
+##Piloto##
+##[Dialog flow for DraJu]##
+Intents: 
+--> Sue a company (processo, processar):
+--> Incorrect/Billing of a telecom*
+
+Entities: Petitioner (Name, Address, my info)*
+Defedant: Company name, company info (Empresa reu)
+Action type: 
+- Material damage (Dano material)
+- Moral damage (Dano moral)
+- Dual restitution (Restituição em dobro)
+Problem data: 
+-When happens
+-values
+-facts 
+-explanations (for damage)
+
 
 ## [1.0.3] - 2020-03-10
 Swagger documentation add to project:
