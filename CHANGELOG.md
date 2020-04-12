@@ -33,9 +33,22 @@ Future intents:
 -Document generation and download
 -Dialog flow detect intent with Java link:
 https://cloud.google.com/dialogflow/docs/quick/api#detect-intent-text-java
-(Work on all pre-requisites before it)
+(Work on all pre-requisites before it) -> agent name: draju-v1:
+https://dialogflow.cloud.google.com/#/agent/drajuproject/intents
+
+-Study and test mega agent concept:
+https://cloud.google.com/dialogflow/docs/agents-mega
+
+-Study gcloud ml speech (google CCAI speach to audio support):
+https://cloud.google.com/speech-to-text
+
 -Multilanguage support:
 https://cloud.google.com/dialogflow/docs/agents-multilingual
+
+##[Then UI]##
+- Web using Angular
+- Mobile using outsystems:
+https://success.outsystems.com/Documentation/11/Extensibility_and_Integration/REST/Consume_REST_APIs/Consume_One_or_More_REST_API_Methods
 
 ##Piloto##
 ##[Dialog flow for DraJu]##

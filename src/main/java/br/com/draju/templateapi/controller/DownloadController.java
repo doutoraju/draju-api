@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import br.com.draju.templateapi.entity.actiondata.Action;
+import br.com.draju.templateapi.service.ActionGenerationException;
 import br.com.draju.templateapi.service.ActionService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
@@ -81,32 +82,26 @@ public class DownloadController {
     @PostMapping(path = "/fill", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ApiOperation(value = "Fills a action document and download content")
     public ResponseEntity<InputStreamResource> fillTemplate(@RequestBody Action actionData) {
-        return retrieveTemplate(actionData);
+    	String filePath;
+    	InputStreamResource result;
+		try {
+			filePath = service.generateActionFile(actionData);
+			result = new InputStreamResource(new FileInputStream(filePath));
+	        return ResponseEntity.ok()
+	                // Content-Disposition
+	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=template.docx")
+	                // Content-Type
+	                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+	                // Contet-Length
+	                .contentLength(result.contentLength()) //
+	                .body(result);
+		} catch (ActionGenerationException e) {
+			log.error("Error generating template file", e);
+			return new ResponseEntity(HttpStatus.SERVICE_UNAVAILABLE);
+		} catch (IOException e) {
+			log.error("Error generating template file", e);
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
     }
-	
-    /**
-     * Utils method to retrieve file
-     *
-     * @param actionData Data to retrieve
-     * @return
-     */
-    private ResponseEntity<InputStreamResource> retrieveTemplate(Action actionData) {
-        InputStreamResource result = null;
-        try {
-            String filePath = service.generateActionFile(actionData);
-            result = new InputStreamResource(new FileInputStream(filePath));
-            return ResponseEntity.ok()
-                    // Content-Disposition
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=template.docx")
-                    // Content-Type
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    // Contet-Length
-                    .contentLength(result.contentLength()) //
-                    .body(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-            //TODO: Improve errors
-            return ResponseEntity.notFound().build();
-        }
-    }
+
 }

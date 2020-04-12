@@ -24,13 +24,13 @@ public class ActionService {
 	public String generateActionFile(Action actionInformation) throws ActionGenerationException {
 		try {
 			String templatePath = new java.io.File(".").getCanonicalPath() + RESOURCES_LOCATION + TEMPLATE_NAME;
-			String destinationPath = DESTINATION_FILE_NAME.replaceAll("${cpf}",
+			String destinationPath = DESTINATION_FILE_NAME.replaceAll("{cpf}",
 					actionInformation.getPetitioner().getCpf());
 			Map<String, String> variables = GeneratorUtils.getReplacingParametersFromDTO(actionInformation);
 			docxGenerator.generateDocxAndSave(actionInformation, templatePath, destinationPath, variables);
 			return destinationPath;
 		} catch (Exception ex) {
-			log.error("Exception generating action file", ex);
+ 			log.error("Exception generating action file", ex);
 			//TODO: Adding multilang i18n support
 			throw new ActionGenerationException("Action file could not be generated", ex);
 		}
