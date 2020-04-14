@@ -26,5 +26,5 @@ public class Petitioner {
 	private String maritialStatus;
 	private String cpf;
 	private String rg;
-	private String fullAdress;
+	private String fullAddress;
 }

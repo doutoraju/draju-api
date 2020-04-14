@@ -24,8 +24,7 @@ public class ActionService {
 	public String generateActionFile(Action actionInformation) throws ActionGenerationException {
 		try {
 			String templatePath = new java.io.File(".").getCanonicalPath() + RESOURCES_LOCATION + TEMPLATE_NAME;
-			String destinationPath = DESTINATION_FILE_NAME.replaceAll("{cpf}",
-					actionInformation.getPetitioner().getCpf());
+			String destinationPath = DESTINATION_FILE_NAME.replace("${cpf}", actionInformation.getPetitioner().getCpf());
 			Map<String, String> variables = GeneratorUtils.getReplacingParametersFromDTO(actionInformation);
 			docxGenerator.generateDocxAndSave(actionInformation, templatePath, destinationPath, variables);
 			return destinationPath;
