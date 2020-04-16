@@ -6,5 +6,4 @@ logging:
   level:
     .: INFO
     org.springframework: INFO
-    br.com.draju: DEBUG
-
+    br.com.draju: INFO

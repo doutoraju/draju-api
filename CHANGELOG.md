@@ -30,7 +30,7 @@ Future intents:
 - Review a contract (Revisar um contrato)
 
 ##[Next-Priority]
--Document generation and download
+-Document generation and download (OK)
 -Dialog flow detect intent with Java link:
 https://cloud.google.com/dialogflow/docs/quick/api#detect-intent-text-java
 (Work on all pre-requisites before it) -> agent name: draju-v1:
@@ -50,10 +50,24 @@ https://cloud.google.com/dialogflow/docs/agents-multilingual
 - Mobile using outsystems:
 https://success.outsystems.com/Documentation/11/Extensibility_and_Integration/REST/Consume_REST_APIs/Consume_One_or_More_REST_API_Methods
 
+##[AutoActions]##
+--> From intent to service
+--> Mapping from Entities to Objects (JSON)
+--> All configurable in yml files and using reflection
+Example:
+intent: Name of the intent
+confidence filter: 0.798749
+serviceConfirmation: The description of the confirmation (the agent will ask, and if user confirms, then call)
+url: The url to be called
+method: POST (tipically) or GET if it is a link
+baseDTO: br.com.mypackage.MyDTO or URL (Optional)
+paramMapping: {entityNameInGoogle: baseDTO.attribute.attribute, anotherEntity: baseDTO.attribute}
+V2--> Can call methods, vxmls or other actions from intents
+
 ##Piloto##
 ##[Dialog flow for DraJu]##
 Intents: 
---> Sue a company (processo, processar):
+--> Sue a telecom (processo, processar):
 --> Incorrect/Billing of a telecom*
 
 Entities: Petitioner (Name, Address, my info)*
