@@ -19,9 +19,16 @@ import com.google.cloud.dialogflow.v2.SessionsSettings;
 import com.google.cloud.dialogflow.v2.TextInput;
 import com.google.common.collect.Lists;
 
+//TODO: Test two instance scenario, two call with same UUID and check chat is reusable
 public class DialogFlowUtils {
 	
 	private static SessionsClient sessionClient;
+	
+	//TODO: Refactor to handle differents site ID for tennants
+	//API: HandleStartConversation, HandleFinish (close resource)
+	//Map<String, SessionClient> = put(1L, cientXPTO);
+	//TODO: Create a diferent flow for DialogFlow conversation
+	//TODO Create unit tests for google CCAI / Dialogflow
 	
 	private static String projectId;
 	
