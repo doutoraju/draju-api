@@ -1,8 +1,10 @@
 package br.com.draju.templateapi;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 @DisplayName("Docx GeneratorUtils test")
+@TestInstance(Lifecycle.PER_CLASS)
 public class GeneratorUtilsTest {
 
     @BeforeEach

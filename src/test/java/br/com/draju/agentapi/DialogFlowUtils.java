@@ -25,10 +25,10 @@ public class DialogFlowUtils {
 	private static SessionsClient sessionClient;
 	
 	//TODO: Refactor to handle differents site ID for tennants
-	//API: HandleStartConversation, HandleFinish (close resource)
-	//Map<String, SessionClient> = put(1L, cientXPTO);
 	//TODO: Create a diferent flow for DialogFlow conversation
 	//TODO Create unit tests for google CCAI / Dialogflow
+	//API: HandleStartConversation, HandleFinish (close resource)
+	//Map<String, SessionClient> = put(1L, cientXPTO);
 	
 	private static String projectId;
 	
@@ -157,7 +157,7 @@ public class DialogFlowUtils {
 	private static GoogleCredentials createGoogleCredentials() {
 		GoogleCredentials credentials = null;
 		try {
-			credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\Users\\victor\\Downloads\\drajuproject-7ac92c5dc28b.json"))
+			credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\Users\\vhrodriguesv\\Downloads\\draju-gccai.json"))
 					.createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
 
 		} catch (Exception e) {

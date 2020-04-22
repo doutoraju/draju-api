@@ -1,8 +1,10 @@
 package br.com.draju.templateapi;
 
+import static br.com.draju.templateapi.util.Contants.RESOURCES_LOCATION;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
 import java.util.Map;
 
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
@@ -21,10 +23,19 @@ public class Docx4JTest {
 	private TestUtils testUtils = new TestUtils();
 	
 	@Test
+	@DisplayName("Assert template is presented")
+	public void testTemplateIsFound() throws Exception {
+        String location = new java.io.File(".").getCanonicalPath() + RESOURCES_LOCATION;
+        assertNotNull(location);
+        assertTrue(new File(location).isDirectory());
+        assertTrue(new File(location).canRead());
+        assertTrue(new File(location + TestUtils.TEST_TEMPLATE_NAME).isFile());
+	}
+	
+	@Test
 	@DisplayName("Test that Docx4J loads the action template")
 	public void testTemplateIsLoaded() throws Exception {
         MainDocumentPart documentPart = testUtils.createDocumentFromTestTemplate();
-        
         assertNotNull(documentPart);
 	}
 	

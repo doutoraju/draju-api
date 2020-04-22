@@ -24,7 +24,8 @@ public class TestUtils {
 	/*
 	 * Local data used for replacing the document template
 	 */
-	public final String TEST_TEMPLATE_NAME = "test_template.docx";
+	public final static String TEST_TEMPLATE_NAME = "test_template.docx";
+	//other non-static data
 	public final String FULL_NAME = "Victor Vieira";
 	public final String FULL_ADDRESS = "Rua Schiller 82, AP 603, Cristo Rei";
 	public final String CPF = "123456789-09";
