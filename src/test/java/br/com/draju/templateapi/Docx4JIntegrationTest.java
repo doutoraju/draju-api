@@ -15,7 +15,8 @@ import br.com.draju.templateapi.entity.actiondata.Action;
 import br.com.draju.templateapi.util.GeneratorUtils;
 import br.com.draju.templateapi.util.TestUtils;
 
-public class Docx4JTest {
+
+public class Docx4JIntegrationTest {
 	
 	/**
 	 * Non spring test - Simple instanciation
