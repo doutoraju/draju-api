@@ -1,4 +1,4 @@
-package br.com.draju.templateapi.service;
+package br.com.draju.it;
 
 import static br.com.draju.templateapi.util.Contants.DESTINATION_FILE_NAME;
 import static org.junit.Assert.assertNotNull;
@@ -13,12 +13,17 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.ContextConfiguration;
 
+import br.com.draju.templateapi.TemplateApiApplication;
 import br.com.draju.templateapi.entity.actiondata.Action;
+import br.com.draju.templateapi.service.ActionService;
 import br.com.draju.templateapi.util.TestUtils;
 
 @DisplayName("Docx4J API test")
-@SpringBootTest
+@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@ContextConfiguration(classes = TemplateApiApplication.class)
 public class ActionServiceIntegrationTest {
     
     @Autowired

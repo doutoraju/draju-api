@@ -1,4 +1,4 @@
-package br.com.draju.templateapi;
+package br.com.draju.it;
 
 import static br.com.draju.templateapi.util.Contants.RESOURCES_LOCATION;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

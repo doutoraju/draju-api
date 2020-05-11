@@ -7,3 +7,4 @@ logging:
     .: INFO
     org.springframework: INFO
     br.com.draju: INFO
+    org.docx4j: ERROR
