@@ -19,7 +19,7 @@ import br.com.draju.templateapi.util.TestUtils;
 
 @DisplayName("Docx4J API test")
 @SpringBootTest
-public class ActionServiceTest {
+public class ActionServiceIntegrationTest {
     
     @Autowired
     private ActionService service;
